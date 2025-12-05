@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Editar Pedido{% endblock %}
+{% block content %}
+
+<div class="container my-5">
+<h1 class="text-center">👤 🧾 Editar Pedido</h1>
+
+<!-- Caja oscura con sombra y borde redondeado -->
+<div class="form-box-dark mx-auto p-4 shadow-lg rounded-4" style="max-width: 500px;">
+
+<form action="/actualizar/{{ datos[0] }}" method="POST" class="registro-form">
+
+    <div class="mb-3">
+    <label for="id_pedido" class="form-label">🆔 ID de Pedido</label>
+    <input
+        type="text"
+        id="id_pedido"
+        name="id_pedido"
+        class="form-control"
+        value="{{ datos[0] }}"
+        readonly
+    />
+    </div>
+
+    <div class="mb-3">
+    <label for="id_cliente" class="form-label">👤 ID de Cliente</label>
+    <input
+        type="text"
+        id="id_cliente"
+        name="id_cliente"
+        class="form-control"
+        value="{{ datos[1] }}"
+    />
+    </div>
+
+    <div class="mb-3">
+    <label for="id_empleado" class="form-label">🧑‍💼 ID de Empleado</label>
+    <input
+        type="text"
+        id="id_empleado"
+        name="id_empleado"
+        class="form-control"
+        value="{{ datos[2] }}"
+    />
+    </div>
+
+    <div class="mb-3">
+    <label for="fecha_hora" class="form-label">📅 Fecha y Hora</label>
+    <input
+        type="datetime-local"
+        id="fecha_hora"
+        name="fecha"
+        class="form-control"
+        value="{{ datos[3] }}"
+    />
+    </div>
+
+    <div class="mb-3">
+    <label for="total" class="form-label">💰 Total</label>
+    <input
+        type="number"
+        id="total"
+        name="total"
+        class="form-control"
+        value="{{ datos[4] }}"
+    />
+    </div>
+
+    <div class="mb-3">
+    <label for="estado" class="form-label">📦 Estado del Pedido</label>
+    <select id="estado" name="estado" class="form-select">
+        <option value="Entregado" {% if datos[5] == 'Entregado' %}selected{% endif %}>Entregado</option>
+        <option value="Pendiente" {% if datos[5] == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+        <option value="Cancelado" {% if datos[5] == 'Cancelado' %}selected{% endif %}>Cancelado</option>
+        <option value="En preparación" {% if datos[5] == 'En preparación' %}selected{% endif %}>En preparación</option>
+    </select>
+    </div>
+
+    <div class="mb-4 d-grid">
+    <button type="submit" class="btn btn-success">
+        ✅ Actualizar Pedido
+    </button>
+    </div>
+
+    <p class="text-center mt-4">
+        <a href="/" class="btn btn-info text-white fw-bold px-4 py-2 rounded-3 shadow-sm">
+            ← Volver al inicio
+        </a>
+    </p>
+
+
+
+
+</form>
+</div>
+</div>
+
+{% endblock %}

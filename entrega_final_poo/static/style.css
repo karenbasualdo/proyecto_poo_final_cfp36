@@ -1,0 +1,152 @@
+/* =======================
+   🎨 FUENTES Y COLORES
+   ======================= */
+@import url('https://fonts.googleapis.com/css2?family=MonteCarlo&family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap');
+
+:root {
+    --violeta-oscuro: #6a1b9a;
+    --violeta-medio: #8e24aa;
+    --violeta-claro: #cbbde3;
+    --borde: #b39ddb;
+    --texto: #333333;
+}
+
+/* =======================
+   🌸 ESTILO GLOBAL
+   ======================= */
+
+body {
+    background-color: var(--violeta-claro);
+    color: var(--texto);
+    line-height: 1.6;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* =======================
+   🏷️ ENCABEZADOS
+   ======================= */
+h1 {
+    font-family: 'MonteCarlo', cursive;
+    font-style: italic;
+    font-size: 70px;
+    color: var(--violeta-oscuro);
+    margin-bottom: 5px;
+    margin-top: -60px;
+    margin-bottom: 30px; /* más espacio debajo del título */
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #4527a0;
+    border-bottom: 2px solid var(--borde);
+    padding-bottom: 5px;
+}
+
+/* =======================
+   📄 PÁRRAFOS
+   ======================= */
+p {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+/* =======================
+   🧾 FORMULARIOS
+   ======================= */
+.form-box, .registro-form {
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin: 0 auto;
+}
+
+/* Campos */
+.form-box input[type="text"],
+.form-box input[type="number"],
+.form-box input[type="email"],
+.form-box input[type="tel"],
+.form-box input[type="datetime-local"],
+.form-box select,
+.registro-form input[type="text"],
+.registro-form input[type="number"],
+.registro-form input[type="email"],
+.registro-form input[type="tel"],
+.registro-form select {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid var(--borde);
+    padding: 8px 10px;
+    transition: all 0.2s ease;
+}
+
+/* Efecto focus moderno */
+.form-box input:focus,
+.form-box select:focus,
+.registro-form input:focus,
+.registro-form select:focus {
+    outline: none;
+    border-color: var(--violeta-oscuro);
+    box-shadow: 0 0 0 0.25rem rgba(106, 27, 154, 0.25);
+}
+
+/* Botones */
+.btn-primary {
+    background-color: var(--violeta-oscuro);
+    border-color: var(--violeta-oscuro);
+}
+.btn-primary:hover {
+    background-color: var(--violeta-medio);
+    border-color: var(--violeta-medio);
+}
+
+/* =======================
+🧮 TABLAS
+   ======================= */
+.table thead {
+    background-color: var(--violeta-oscuro);
+    color: #fff;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(106, 27, 154, 0.1);
+}
+
+/* =======================
+🌙 FOOTER
+   ======================= */
+footer {
+    font-size: 0.9rem;
+}
+
+
+/* ============================
+🟣 FORMULARIO CON FONDO MÁS OSCURO
+   ============================ */
+.form-box-dark {
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 25px;
+    background: linear-gradient(180deg, #f4eefb 0%, #e3d7f5 100%); /* tono más oscuro que el blanco */
+    box-shadow: 0 6px 14px rgba(106, 27, 154, 0.15);
+    transition: all 0.3s ease;
+}
+
+/* Efecto sutil al pasar el mouse */
+.form-box-dark:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(106, 27, 154, 0.25);
+}
+
+/* Texto negro con contorno blanco en las badges */
+.badge {
+    color: #000000 !important;             /* texto negro */
+    text-shadow: 
+        -1px -1px 0 #ffffff,  /* contorno arriba-izquierda */
+         1px -1px 0 #ffffff,  /* contorno arriba-derecha */
+        -1px  1px 0 #ffffff,  /* contorno abajo-izquierda */
+         1px  1px 0 #ffffff;  /* contorno abajo-derecha */
+}
+

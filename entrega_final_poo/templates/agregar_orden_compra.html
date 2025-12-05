@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Agregar Orden de Compra{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">🛒 Agregar Orden de Compra</h1>
+
+    <form action="{{ url_for('agregar_orden_compra') }}" method="POST" class="p-4 border rounded bg-light shadow-sm">
+
+        <!-- Selección del Pedido -->
+        <div class="mb-3">
+            <label for="id_pedido" class="form-label">📄 Seleccionar Pedido:</label>
+            <select name="id_pedido" id="id_pedido" class="form-select" required>
+                <option value="">-- Seleccioná un pedido --</option>
+                {% for pedido in pedidos %}
+                    <option value="{{ pedido[0] }}">ID {{ pedido[0] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Producto -->
+        <div class="mb-3">
+            <label for="id_producto" class="form-label">☕ Producto:</label>
+            <select name="id_producto" id="id_producto" class="form-select" required>
+                <option value="">-- Seleccioná un producto --</option>
+                {% for producto in productos %}
+                    <option value="{{ producto[0] }}">{{ producto[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Cantidad -->
+        <div class="mb-3">
+            <label for="cantidad" class="form-label">🔢 Cantidad:</label>
+            <input type="number" name="cantidad" id="cantidad" min="1" class="form-control" required placeholder="Ej: 2">
+        </div>
+
+        <!-- Si querés agregar subtotal dinámico en el futuro -->
+        <!-- <p id="subtotal_preview"></p> -->
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary w-100">➕ Agregar al Pedido</button>
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="{{ url_for('listado_orden_compra') }}" class="text-decoration-none">← Volver al Listado</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}🧾 Orden de Compra{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">🧾 Listado de Ordenes de Compra</h1>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-4">
+    <a href="{{ url_for('agregar_orden_compra') }}" class="btn btn-success">
+        ➕ Agregar Orden de Compra</a>
+    </div>
+
+    {% if datos %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID Detalle</th>
+                    <th>ID Pedido</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fila in datos %}
+                <tr>
+                    <td>{{ fila.0 }}</td>
+                    <td>{{ fila.1 }}</td>
+                    <td>{{ fila.2 }}</td>
+                    <td>{{ fila.3 }}</td>
+                    <td>${{ fila.4 }}</td>
+                    <td>
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="/editar_orden_compra/{{ fila.0 }}" class="btn btn-success btn-sm">✏️ Editar</a>
+                            <a href="/eliminar_orden_compra/{{ fila.0 }}" class="btn btn-danger btn-sm"
+                            onclick="return confirm('¿Estás seguro que deseas eliminar este detalle de pedido?')">
+                            🗑️ Eliminar
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-warning text-center">
+        No hay registros en detalle_pedido.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

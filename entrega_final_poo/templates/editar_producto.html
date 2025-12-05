@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Editar Producto - Cafetería{% endblock %}
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">✏️ Editar Producto</h1>
+
+    <form action="/actualizar_productos/{{ datos[0] }}" method="POST" 
+        class="p-4 border rounded bg-light shadow-sm">
+
+        <!-- ID del producto (deshabilitado para no modificar) -->
+        <div class="mb-3">
+            <label for="id_producto" class="form-label">ID del Producto:</label>
+            <input type="text" id="id_producto" name="id_producto" 
+                class="form-control" value="{{ datos[0] }}" readonly>
+        </div>
+
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre del Producto:</label>
+            <input type="text" id="nombre" name="nombre" class="form-control" 
+                required value="{{ datos[1] }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="id_categoria" class="form-label">Categoría:</label>
+            <select id="id_categoria" name="id_categoria" class="form-select" required>
+                
+                <option value="CAT_CCAL" {% if datos[4] == "CAT_CCAL" %}selected{% endif %}>Café Caliente</option>
+                <option value="CAT_CFRIO" {% if datos[4] == "CAT_CFRIO" %}selected{% endif %}>Café Frío</option>
+                <option value="CAT_TE" {% if datos[4] == "CAT_TE" %}selected{% endif %}>Infusiones y Tés</option>
+                <option value="CAT_PAST" {% if datos[4] == "CAT_PAST" %}selected{% endif %}>Pastelería y Boulangerie</option>
+                <option value="CAT_POST" {% if datos[4] == "CAT_POST" %}selected{% endif %}>Postres y Tortas</option>
+                <option value="CAT_SAND" {% if datos[4] == "CAT_SAND" %}selected{% endif %}>Sandwichería</option>
+                <option value="CAT_BEB" {% if datos[4] == "CAT_BEB" %}selected{% endif %}>Bebidas Embotelladas</option>
+
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción:</label>
+            <input type="text" id="descripcion" name="descripcion" class="form-control" 
+                value="{{ datos[2] }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="id_tamanio" class="form-label">Tamaño:</label>
+            <select name="id_tamanio" id="id_tamanio" class="form-select" required>
+                <option value="">Seleccionar tamaño...</option>
+
+                {% for t in tamanios %}
+                <option value="{{ t[0] }}" {% if datos[5] == t[0] %}selected{% endif %}>
+                    {{ t[1] }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="precio" class="form-label">💰 Precio:</label>
+            <input type="number" step="0.01" id="precio" name="precio" class="form-control" 
+                required value="{{ datos[3] }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="stock" class="form-label">Stock:</label>
+            <input type="number" id="stock" name="stock" class="form-control" 
+                required value="{{ datos[6] }}">
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary w-100">💾 Guardar Cambios</button>
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="/listado_productos" class="text-decoration-none">← Volver al listado</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

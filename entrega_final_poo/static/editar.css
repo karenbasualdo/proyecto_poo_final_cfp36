@@ -1,0 +1,83 @@
+/* Fuente importada desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=MonteCarlo&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+body{
+    /* **Mantiene el fondo y las fuentes generales** */
+    background-color: #dcd4eb; 
+    line-height: 1.6;
+    font-family: 'Roboto', sans-serif; 
+    color: #333333; 
+}
+
+/* **Estilo para el Encabezado Principal (H1)** */
+h1 {
+    font-family: 'MonteCarlo', cursive;
+    font-style: italic;
+    font-size: 70px;
+    color: #6a1b9a; 
+    margin-bottom: 5px;
+}
+
+/* **Estilo para Encabezados Secundarios (H2) - Aplicable a formularios, etc.** */
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; 
+    color: #4527a0; 
+    border-bottom: 2px solid #b39ddb; 
+    padding-bottom: 5px;
+}
+
+/* **Estilo para Párrafos** */
+p {
+    font-size: 16px;
+    font-weight: 300; 
+}
+
+/* --- Ajustes Específicos para Formularios --- */
+
+/* Contorno para el formulario: USANDO LA CLASE form-box que ya tenías en el div */
+.form-box {
+    border: 1px solid #b39ddb; /* Borde sutil */
+    border-radius: 8px; /* Esquinas redondeadas */
+    padding: 25px; /* Espaciado interno */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    background-color: #ffffff; /* Fondo blanco para el formulario */
+}
+
+
+/* Limita el ancho de los campos de entrada de texto (input), correo y teléfono
+   Nota: Apliqué esto a todos los inputs de texto/número/select para consistencia. */
+.form-box input[type="text"],
+.form-box input[type="number"],
+.form-box input[type="datetime-local"],
+.form-box .form-select {
+    /* Define un ancho más compacto para que los campos sean más pequeños */
+    /* max-width: 280px;  Comento esta línea para que los campos sigan ocupando el 100% del formulario como en tu diseño original */
+    /* Mantiene el centrado si el formulario está centrado */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Asegura que el botón siga ocupando el ancho completo de su contenedor. 
+   Esto ya está manejado con text-center, pero lo mantenemos por si acaso */
+/*
+.form-box .btn {
+    width: 100%; 
+}
+*/
+
+/* --- NUEVO: Mejora de Usabilidad y Estilo Profesional (Focus) --- */
+
+/* Aplica a todos los campos de texto, número, fecha y select cuando están activos */
+.form-box input:focus,
+.form-box select:focus {
+    /* 1. Elimina el 'outline' azul/negro que pone el navegador/Bootstrap */
+    outline: none; 
+    
+    /* 2. Aplica un borde sólido del color púrpura de tus encabezados */
+    border-color: #6a1b9a; /* Color púrpura oscuro */
+    
+    /* 3. Agrega una sombra sutil (glow) púrpura para un efecto moderno */
+    box-shadow: 0 0 0 0.25rem rgba(106, 27, 154, 0.25); /* Púrpura con 25% de opacidad */
+}
+

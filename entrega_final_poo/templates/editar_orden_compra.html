@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}✏️ Editar Orden de Compra{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">✏️ Editar Orden de Compra</h1>
+
+    <form action="{{ url_for('actualizar_orden_compra', id=datos['id_detalle']) }}" method="POST"
+        class="p-4 border rounded bg-light shadow-sm">
+
+        <!-- ID Detalle (texto fijo) -->
+        <div class="mb-3">
+            <label class="form-label">ID Detalle:</label>
+            <p class="form-control-plaintext">{{ datos['id_detalle'] }}</p>
+        </div>
+
+        <!-- Pedido (texto fijo) -->
+        <div class="mb-3">
+            <label class="form-label">Pedido:</label>
+            <p class="form-control-plaintext">{{ datos['id_pedido'] }}</p>
+        </div>
+
+        <!-- Producto (texto fijo) -->
+        <div class="mb-3">
+            <label class="form-label">Producto:</label>
+            <p class="form-control-plaintext">{{ datos['producto'] }}</p>
+        </div>
+
+        <!-- Cantidad editable -->
+        <div class="mb-3">
+            <label for="cantidad" class="form-label">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad" class="form-control"
+                min="1" required value="{{ datos['cantidad'] }}">
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary w-100">💾 Guardar Cambios</button>
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="{{ url_for('listado_orden_compra') }}" class="text-decoration-none">← Volver al listado</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+

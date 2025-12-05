@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Listado de Pedidos - Cafetería{% endblock %}
+{% block content %}
+<div class="container mt-4"> 
+    
+    <h1 class="text-center mb-4">☕ Listado de Pedidos</h1>
+    
+    <div class="text-end mb-3">
+        <a href="{{ url_for('crear_pedido') }}" class="btn btn-success">
+            ➕ Nuevo Pedido
+        </a>
+    </div>
+
+
+    {% if datos %}
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID Pedido</th>
+                    <th>ID Cliente</th>
+                    <th>ID Empleado</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pedido in datos %}
+                <tr>
+                    <td>{{ pedido.0 }}</td>
+                    <td>{{ pedido.1 }}</td>
+                    <td>{{ pedido.2 }}</td>
+                    <td>{{ pedido.3 }}</td>
+                    <td>${{ pedido.4 }}</td>
+                    <td>
+                        {% if pedido.5 == 'Entregado' %}
+                            <span class="badge text-bg-success">{{ pedido.5 }}</span>
+                        {% elif pedido.5 == 'En preparación' %}
+                            <span class="badge text-bg-warning">{{ pedido.5 }}</span>
+                        {% elif pedido.5 == 'Cancelado' %}
+                            <span class="badge text-bg-danger">{{ pedido.5 }}</span>
+                        {% else %}
+                            <span class="badge text-bg-secondary">{{ pedido.5 }}</span>
+                        {% endif %}
+                    </td>
+                    
+                    <td> 
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="/editar/{{ pedido.0 }}" class="btn btn-sm btn-info me-2">✏️ Editar</a>
+                        </div>
+                    </td>       
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info text-center" role="alert">
+        ❌ No hay pedidos registrados para mostrar.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

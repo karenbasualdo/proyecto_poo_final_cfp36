@@ -1,0 +1,376 @@
+-- ==========================================================
+-- BASE DE DATOS: CAFETERIA_RETIRO
+-- ==========================================================
+DROP DATABASE IF EXISTS cafeteria_online_retiro;
+CREATE DATABASE cafeteria_online_retiro;
+USE cafeteria_online_retiro;
+
+-- ==========================================================
+-- TABLA: CLIENTES
+-- Prefijo de ID: CL
+-- ==========================================================
+CREATE TABLE clientes ( id_cliente VARCHAR(10) PRIMARY KEY,
+						 nombre VARCHAR(100),
+                         apellido VARCHAR(100),
+                         email VARCHAR(150) UNIQUE,
+                         telefono VARCHAR(50),
+                         direccion VARCHAR(200),
+                         barrio VARCHAR(100) DEFAULT 'Retiro'
+);
+
+INSERT INTO clientes (id_cliente, nombre, apellido, email, telefono, direccion) VALUES
+('CL01', 'María', 'Gómez', 'maria@gmail.com', '1150000001', 'Av. Córdoba 1120'),
+('CL02', 'Lucía', 'Martínez', 'lucia@gmail.com', '1150000002', 'Maipú 880'),
+('CL03', 'Sofía', 'Domínguez', 'sofia@gmail.com', '1150000003', 'San Martín 950'),
+('CL04', 'Juan', 'López', 'juan@gmail.com', '1150000004', 'Reconquista 600'),
+('CL05', 'Andrés', 'Pérez', 'andres@gmail.com', '1150000005', 'Av. Santa Fe 1200'),
+('CL06', 'Natalia', 'Suárez', 'natalia@gmail.com', '1150000006', 'Tres Sargentos 900'),
+('CL07', 'Carlos', 'García', 'carlos@gmail.com', '1150000007', 'Paraguay 1000'),
+('CL08', 'Laura', 'Rodríguez', 'laura@gmail.com', '1150000008', 'Av. Libertador 1100'),
+('CL09', 'Pedro', 'Fernández', 'pedro@gmail.com', '1150000009', 'Av. San Juan 1150'),
+('CL10', 'Julieta', 'Torres', 'julieta@gmail.com', '1150000010', 'Florida 550'),
+('CL11', 'Camila', 'Morales', 'camila@gmail.com', '1150000011', 'Tucumán 890'),
+('CL12', 'Ana', 'Benítez', 'ana@gmail.com', '1150000012', 'Arenales 960'),
+('CL13', 'Martín', 'Vega', 'martin@gmail.com', '1150000013', 'Juncal 1020'),
+('CL14', 'Carolina', 'Sosa', 'carolina@gmail.com', '1150000014', 'Av. Córdoba 1140'),
+('CL15', 'Paula', 'Aguilar', 'paula@gmail.com', '1150000015', 'San Martín 880'),
+('CL16', 'Agustín', 'Romero', 'agustin@gmail.com', '1150000016', 'Maipú 890'),
+('CL17', 'Florencia', 'Gómez', 'flor@gmail.com', '1150000017', 'Esmeralda 1010'),
+('CL18', 'Nicolás', 'Herrera', 'nico@gmail.com', '1150000018', 'Av. Alem 1200'),
+('CL19', 'Valentina', 'Castro', 'valen@gmail.com', '1150000019', 'Reconquista 980'),
+('CL20', 'Luna', 'Díaz', 'luna@gmail.com', '1150000020', 'Av. Madero 1050'),
+('CL21', 'Matías', 'Ortiz', 'matias@gmail.com', '1150000021', 'Arenales 1150'),
+('CL22', 'Rocío', 'Campos', 'rocio@gmail.com', '1150000022', 'Maipú 700'),
+('CL23', 'Damián', 'Rojas', 'damian@gmail.com', '1150000023', 'Tucumán 970'),
+('CL24', 'Ezequiel', 'Ramírez', 'ezequiel@gmail.com', '1150000024', 'Juncal 880'),
+('CL25', 'Federico', 'Vidal', 'fede@gmail.com', '1150000025', 'Av. Córdoba 1180');
+
+-- ==========================================================
+-- TABLA: EMPLEADOS 
+-- Prefijo de ID: EM
+-- ==========================================================
+CREATE TABLE empleados (id_empleado VARCHAR(10) PRIMARY KEY,
+						nombre VARCHAR(100),
+                        apellido VARCHAR(100),
+                        puesto VARCHAR(100),
+                        telefono VARCHAR(50)
+);
+
+INSERT INTO empleados (id_empleado, nombre, apellido, puesto, telefono) VALUES
+('EM01', 'Laura', 'Fernández', 'Barista', '113001001'),
+('EM02', 'Carlos', 'Pérez', 'Pastelero', '113001002'),
+('EM03', 'Marta', 'López', 'Cajera', '113001003'),
+('EM04', 'Diego', 'Gómez', 'Delivery', '113001004'),
+('EM05', 'Lucía', 'Ruiz', 'Encargada', '113001005');
+
+
+-- ==========================================================
+-- 1. CREACIÓN DE LA TABLA CATEGORIAS 
+-- Esta tabla almacenará las diferentes categorías de productos.
+-- ==========================================================
+CREATE TABLE categorias (id_categoria VARCHAR(10) PRIMARY KEY, -- Ej: CAT_CAFE, CAT_TE
+			 nombre_categoria VARCHAR(100) UNIQUE  -- Ej: 'Café Caliente', 'Infusiones'
+);
+
+-- Inserción de datos iniciales (Categorías más completas para una Cafetería)
+INSERT INTO categorias (id_categoria, nombre_categoria) VALUES
+('CAT_CCAL', 'Café Caliente'),        -- Espresso, Latte, Americano
+('CAT_CFRIO', 'Café Frío'),          -- Iced Latte, Cold Brew, Frappe
+('CAT_TE', 'Infusiones y Tés'),       -- Té en hebras, Mate, Tisanas
+('CAT_PAST', 'Pastelería y Boulangerie'), -- Croissants, Muffins, Scones
+('CAT_POST', 'Postres y Tortas'),     -- Porciones de torta, Cheescake, Tiramisú
+('CAT_SAND', 'Sandwichería'),         -- Sandwiches, Tostados, Wraps
+('CAT_BEB', 'Bebidas Embotelladas');  -- Aguas, Gaseosas, Jugos envasados
+
+-- ==========================================================
+-- 1. CREACIÓN DE LA TABLA tamaños
+-- Esta tabla almacenará las diferentes categorías de productos.
+-- ==========================================================
+CREATE TABLE tamaños (
+    id_tamaño VARCHAR(10) PRIMARY KEY,
+    nombre_tamanio VARCHAR(50) NOT NULL
+);
+
+INSERT INTO tamaños (id_tamaño, nombre_tamanio) VALUES
+('T01', 'Chico'),
+('T02', 'Mediano'),
+('T03', 'Grande'),
+('T04', 'Porción'),
+('T05', 'Individual'),
+('T06', 'Unidad');
+
+
+-- ==========================================================
+-- TABLA: PRODUCTOS
+-- Prefijo de ID: PR
+-- ==========================================================
+CREATE TABLE productos (id_producto VARCHAR(10) PRIMARY KEY,
+			nombre VARCHAR(100) NOT NULL,
+			descripcion VARCHAR(100),
+			precio DECIMAL(10,2) NOT NULL,
+			stock INT NOT NULL DEFAULT 50 CHECK (stock >= 0),
+			id_tamaño VARCHAR(10),
+			id_categoria VARCHAR(10),
+			FOREIGN KEY (id_tamaño) REFERENCES tamaños(id_tamaño),
+			FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
+);
+
+-- ===========================================================
+-- INSERCIÓN DE PRODUCTOS
+-- ===========================================================
+INSERT INTO productos VALUES
+('PR01','Café Espresso','Intenso',1500,50,'T01','CAT_CCAL'),
+('PR02','Café Latte','Suave',2000,50,'T02','CAT_CCAL'),
+('PR03','Capuccino','Avellana',2300,50,'T03','CAT_CCAL'),
+('PR04','Café Americano','Suave',1800,50,'T03','CAT_CCAL'),
+('PR05','Café Mocha','Chocolate',2400,50,'T03','CAT_CCAL'),
+('PR06','Té Verde','Hierbas',1700,50,'T02','CAT_TE'),
+('PR07','Té Negro','Clásico',1600,50,'T02','CAT_TE'),
+('PR08','Limonada','Menta y Jengibre',2700,50,'T03','CAT_BEB'),
+('PR09','Jugo de Naranja','Natural',2500,50,'T03','CAT_BEB'),
+('PR10','Licuado de Banana','Banana',2800,50,'T03','CAT_BEB'),
+('PR11','Torta de Chocolate','Chocolate',4200,50,'T04','CAT_POST'),
+('PR12','Cheesecake','Frutos Rojos',4500,50,'T04','CAT_POST'),
+('PR13','Tarta de Coco','Coco y Dulce de Leche',4100,50,'T04','CAT_POST'),
+('PR14','Brownie','Chocolate Nuez',3200,50,'T04','CAT_POST'),
+('PR15','Medialuna','Manteca',800,50,'T06','CAT_PAST'),
+('PR16','Sandwich de Jamón y Queso','Clásico',3500,50,'T05','CAT_SAND'),
+('PR17','Sandwich Vegano','Vegetales Asados',3800,50,'T05','CAT_SAND'),
+('PR18','Tostado Completo','Jamon, Queso y Tomate',3900,50,'T05','CAT_SAND'),
+('PR19','Muffin','Vainilla con Chips',1500,50,'T06','CAT_PAST'),
+('PR20','Cookie','Chocolate Chips',1300,50,'T06','CAT_PAST'),
+('PR21','Jugo de Frutilla','Frutilla',2600,50,'T03','CAT_BEB'),
+('PR22','Té de Manzanilla','Flores',1500,50,'T02','CAT_TE'),
+('PR23','Tarta de Manzana','Manzana y Canela',3700,50,'T04','CAT_POST'),
+('PR24','Licuado de Durazno','Durazno',2800,50,'T03','CAT_BEB'),
+('PR25','Café Cortado','Suave',1600,50,'T01','CAT_CCAL');
+
+
+
+-- ==========================================================
+-- TABLA: MEDIOS DE PAGO 
+-- Prefijo de ID: MP
+-- ==========================================================
+CREATE TABLE medios_pago (id_medio_pago VARCHAR(10) PRIMARY KEY,
+							tipo VARCHAR(100),
+                            descripcion VARCHAR(200)
+);
+
+INSERT INTO medios_pago (id_medio_pago, tipo, descripcion) VALUES
+('MP01', 'Efectivo', 'Pago en efectivo al recibir o retirar'),
+('MP02', 'Tarjeta de crédito', 'Visa, MasterCard, Naranja X'),
+('MP03', 'Tarjeta de débito', 'Visa Débito, Maestro'),
+('MP04', 'Transferencia', 'CBU o alias de la cafetería'),
+('MP05', 'Mercado Pago', 'Código QR o link de pago'),
+('MP06', 'Cuenta DNI', 'Billetera digital Banco Provincia'),
+('MP07', 'Ualá', 'Pago digital desde la app');
+
+-- ==========================================================
+-- TABLA: PEDIDOS
+-- Prefijo de ID: PE
+-- ==========================================================
+CREATE TABLE pedidos (id_pedido VARCHAR(10) PRIMARY KEY,
+			id_cliente VARCHAR(10),
+                        id_empleado VARCHAR(10),
+                        fecha DATETIME,
+                        total DECIMAL(10,2),
+                        id_medio_pago VARCHAR(10),
+                        estado VARCHAR(50),
+                        FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+                        FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado),
+                        FOREIGN KEY (id_medio_pago) REFERENCES medios_pago(id_medio_pago)
+);
+
+-- 25 pedidos de muestra con IDs  (PE01 a PE25) y FKs 
+
+INSERT INTO pedidos (id_pedido, id_cliente, id_empleado, fecha, total, id_medio_pago, estado) VALUES
+('PE01', 'CL01', 'EM01', '2025-11-04 09:00:00', 7200, 'MP02', 'Entregado'),
+('PE02', 'CL02', 'EM03', '2025-11-04 09:20:00', 3100, 'MP05', 'Entregado'),
+('PE03', 'CL03', 'EM05', '2025-11-04 09:45:00', 10700, 'MP04', 'Entregado'),
+('PE04', 'CL04', 'EM04', '2025-11-04 10:00:00', 6500, 'MP06', 'Pendiente'),
+('PE05', 'CL05', 'EM02', '2025-11-04 10:15:00', 5200, 'MP05', 'Entregado'),
+('PE06', 'CL06', 'EM01', '2025-11-04 10:40:00', 10200, 'MP02', 'En preparación'),
+('PE07', 'CL07', 'EM03', '2025-11-04 11:00:00', 4200, 'MP03', 'Pendiente'),
+('PE08', 'CL08', 'EM04', '2025-11-04 11:20:00', 9600, 'MP04', 'Entregado'),
+('PE09', 'CL09', 'EM02', '2025-11-04 11:40:00', 3900, 'MP01', 'Entregado'),
+('PE10', 'CL10', 'EM05', '2025-11-04 12:00:00', 6700, 'MP05', 'Pendiente'),
+('PE11', 'CL11', 'EM05', '2025-11-04 12:30:00', 4900, 'MP01', 'Entregado'),
+('PE12', 'CL12', 'EM01', '2025-11-04 13:00:00', 5000, 'MP03', 'Entregado'),
+('PE13', 'CL13', 'EM02', '2025-11-04 13:30:00', 7000, 'MP05', 'En preparación'),
+('PE14', 'CL14', 'EM03', '2025-11-04 14:00:00', 3900, 'MP04', 'Pendiente'),
+('PE15', 'CL15', 'EM04', '2025-11-04 14:30:00', 5500, 'MP02', 'Entregado'),
+('PE16', 'CL16', 'EM05', '2025-11-04 15:00:00', 4200, 'MP06', 'Entregado'),
+('PE17', 'CL17', 'EM01', '2025-11-04 15:30:00', 6500, 'MP05', 'En preparación'),
+('PE18', 'CL18', 'EM02', '2025-11-04 16:00:00', 7800, 'MP01', 'Entregado'),
+('PE19', 'CL19', 'EM03', '2025-11-04 16:30:00', 4600, 'MP03', 'Pendiente'),
+('PE20', 'CL20', 'EM04', '2025-11-04 17:00:00', 8700, 'MP02', 'Entregado'),
+('PE21', 'CL21', 'EM05', '2025-11-04 17:30:00', 3700, 'MP04', 'Entregado'),
+('PE22', 'CL22', 'EM01', '2025-11-04 18:00:00', 5300, 'MP05', 'En preparación'),
+('PE23', 'CL23', 'EM02', '2025-11-04 18:30:00', 6400, 'MP06', 'Entregado'),
+('PE24', 'CL24', 'EM03', '2025-11-04 19:00:00', 4700, 'MP01', 'Pendiente'),
+('PE25', 'CL25', 'EM04', '2025-11-04 19:30:00', 5900, 'MP03', 'Entregado');
+
+
+-- ==========================================================
+-- TABLA: PAGO
+-- Prefijo de ID: PA
+-- Esta tabla se agrega para registrar las transacciones de pago con detalle.
+-- ==========================================================
+CREATE TABLE pago (
+    id_pago VARCHAR(10) PRIMARY KEY,
+    id_pedido VARCHAR(10),
+    id_medio_pago VARCHAR(10),
+    monto DECIMAL(10,2),
+    fecha_pago DATE,
+    estado_pago ENUM('pagado', 'pendiente', 'fallido') DEFAULT 'pendiente',
+    FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido),
+    FOREIGN KEY (id_medio_pago) REFERENCES medios_pago(id_medio_pago)
+);
+
+-- ==========================================================
+-- INSERCIÓN DE DATOS DE PAGO (Migración de datos iniciales)
+-- ==========================================================
+INSERT INTO pago (id_pago, id_pedido, id_medio_pago, monto, fecha_pago, estado_pago) VALUES
+('PA01', 'PE01', 'MP02', 7200, '2025-11-04', 'pagado'),
+('PA02', 'PE02', 'MP05', 3100, '2025-11-04', 'pagado'),
+('PA03', 'PE03', 'MP04', 10700, '2025-11-04', 'pagado'),
+('PA04', 'PE04', 'MP06', 6500, '2025-11-04', 'pendiente'), -- Asumiendo estado de pago basado en estado del pedido
+('PA05', 'PE05', 'MP05', 5200, '2025-11-04', 'pagado'),
+('PA06', 'PE06', 'MP02', 10200, '2025-11-04', 'pendiente'),
+('PA07', 'PE07', 'MP03', 4200, '2025-11-04', 'pendiente'),
+('PA08', 'PE08', 'MP04', 9600, '2025-11-04', 'pagado'),
+('PA09', 'PE09', 'MP01', 3900, '2025-11-04', 'pagado'),
+('PA10', 'PE10', 'MP05', 6700, '2025-11-04', 'pendiente'),
+('PA11', 'PE11', 'MP01', 4900, '2025-11-04', 'pagado'),
+('PA12', 'PE12', 'MP03', 5000, '2025-11-04', 'pagado'),
+('PA13', 'PE13', 'MP05', 7000, '2025-11-04', 'pendiente'),
+('PA14', 'PE14', 'MP04', 3900, '2025-11-04', 'pendiente'),
+('PA15', 'PE15', 'MP02', 5500, '2025-11-04', 'pagado'),
+('PA16', 'PE16', 'MP06', 4200, '2025-11-04', 'pagado'),
+('PA17', 'PE17', 'MP05', 6500, '2025-11-04', 'pendiente'),
+('PA18', 'PE18', 'MP01', 7800, '2025-11-04', 'pagado'),
+('PA19', 'PE19', 'MP03', 4600, '2025-11-04', 'pendiente'),
+('PA20', 'PE20', 'MP02', 8700, '2025-11-04', 'pagado'),
+('PA21', 'PE21', 'MP04', 3700, '2025-11-04', 'pagado'),
+('PA22', 'PE22', 'MP05', 5300, '2025-11-04', 'pendiente'),
+('PA23', 'PE23', 'MP06', 6400, '2025-11-04', 'pagado'),
+('PA24', 'PE24', 'MP01', 4700, '2025-11-04', 'pendiente'),
+('PA25', 'PE25', 'MP03', 5900, '2025-11-04', 'pagado');
+
+
+
+-- ==========================================================
+-- TABLA: DETALLE_PEDIDO
+-- Prefijo de ID: DP
+-- ==========================================================
+CREATE TABLE detalle_pedido (id_detalle VARCHAR(10) PRIMARY KEY,
+			    id_pedido VARCHAR(10),
+                            id_producto VARCHAR(10),
+                            cantidad INT NOT NULL CHECK (cantidad > 0),
+                            subtotal DECIMAL(10,2),
+                            FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido),
+                            FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
+);
+
+-- Inserción de 36 registros con códigos alfanuméricos (DP01 a DP36) y FKs 
+INSERT INTO detalle_pedido (id_detalle, id_pedido, id_producto, cantidad, subtotal) VALUES
+('DP01', 'PE01', 'PR01', 2, 3000), ('DP02', 'PE01', 'PR11', 1, 4200),
+('DP03', 'PE02', 'PR15', 2, 1600), ('DP04', 'PE02', 'PR01', 1, 1500),
+('DP05', 'PE03', 'PR12', 2, 9000), ('DP06', 'PE03', 'PR06', 1, 1700),
+('DP07', 'PE04', 'PR17', 1, 3800), ('DP08', 'PE04', 'PR08', 1, 2700),
+('DP09', 'PE05', 'PR05', 1, 2400), ('DP10', 'PE05', 'PR10', 1, 2800),
+('DP11', 'PE06', 'PR13', 2, 8200), ('DP12', 'PE06', 'PR02', 1, 2000),
+('DP13', 'PE11', 'PR15', 2, 1600), ('DP14', 'PE11', 'PR16', 1, 3300),
+('DP15', 'PE12', 'PR09', 2, 5000),
+('DP16', 'PE13', 'PR10', 1, 2800), ('DP17', 'PE13', 'PR11', 1, 4200),
+('DP18', 'PE14', 'PR18', 1, 3900),
+('DP19', 'PE15', 'PR04', 1, 1800), ('DP20', 'PE15', 'PR23', 1, 3700),
+('DP21', 'PE16', 'PR11', 1, 4200),
+('DP22', 'PE17', 'PR03', 1, 2300), ('DP23', 'PE17', 'PR11', 1, 4200),
+('DP24', 'PE18', 'PR16', 2, 7000), ('DP25', 'PE18', 'PR15', 1, 800),
+('DP26', 'PE19', 'PR03', 2, 4600),
+('DP27', 'PE20', 'PR12', 1, 4500), ('DP28', 'PE20', 'PR11', 1, 4200),
+('DP29', 'PE21', 'PR23', 1, 3700),
+('DP30', 'PE22', 'PR17', 1, 3800), ('DP31', 'PE22', 'PR01', 1, 1500),
+('DP32', 'PE23', 'PR14', 2, 6400),
+('DP33', 'PE24', 'PR14', 1, 3200), ('DP34', 'PE24', 'PR01', 1, 1500),
+('DP35', 'PE25', 'PR05', 1, 2400), ('DP36', 'PE25', 'PR16', 1, 3500);
+
+-- ==========================================================
+-- TABLA: ENVIOS
+-- Prefijo de ID: EN
+-- ==========================================================
+CREATE TABLE envios (id_envio VARCHAR(10) PRIMARY KEY,
+		    id_pedido VARCHAR(10),
+                    metodo_entrega VARCHAR(50),
+                    direccion_entrega VARCHAR(200),
+                    costo_envio DECIMAL(10,2),
+                    estado_envio VARCHAR(50),
+                    FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido)
+);
+
+-- Inserción con IDs y FKs (EN01 a EN25)
+INSERT INTO envios (id_envio, id_pedido, metodo_entrega, direccion_entrega, costo_envio, estado_envio) VALUES
+('EN01', 'PE01', 'Delivery', 'Av. Córdoba 1120, Retiro', 500, 'Entregado'),
+('EN02', 'PE02', 'Retiro en local', 'Cafetería Retiro - Maipú 900', 0, 'Retirado'),
+('EN03', 'PE03', 'Delivery', 'San Martín 950, Retiro', 500, 'Entregado'),
+('EN04', 'PE04', 'Delivery', 'Reconquista 600, Retiro', 500, 'Pendiente'),
+('EN05', 'PE05', 'Delivery', 'Av. Santa Fe 1200, Retiro', 500, 'Entregado'),
+('EN06', 'PE06', 'Delivery', 'Tres Sargentos 900, Retiro', 500, 'En camino'),
+('EN07', 'PE07', 'Retiro en local', 'Cafetería Retiro - Maipú 900', 0, 'Pendiente'),
+('EN08', 'PE08', 'Delivery', 'Av. Libertador 1100, Retiro', 500, 'Entregado'),
+('EN09', 'PE09', 'Delivery', 'Av. San Juan 1150, Retiro', 500, 'Entregado'),
+('EN10', 'PE10', 'Retiro en local', 'Cafetería Retiro - Maipú 900', 0, 'Pendiente'),
+('EN11', 'PE11', 'Delivery', 'Tucumán 890, Retiro', 500, 'Entregado'),
+('EN12', 'PE12', 'Retiro en local', 'Cafetería Retiro - Maipú 900', 0, 'Retirado'),
+('EN13', 'PE13', 'Delivery', 'Arenales 960, Retiro', 500, 'En camino'),
+('EN14', 'PE14', 'Retiro en local', 'Cafetería Retiro - Maipú 900', 0, 'Pendiente'),
+('EN15', 'PE15', 'Delivery', 'Juncal 1020, Retiro', 500, 'Entregado'),
+('EN16', 'PE16', 'Delivery', 'Av. Córdoba 1140, Retiro', 500, 'Entregado'),
+('EN17', 'PE17', 'Retiro en local', 'Cafetería Retiro - Maipú 900', 0, 'Pendiente'),
+('EN18', 'PE18', 'Delivery', 'San Martín 880, Retiro', 500, 'Entregado'),
+('EN19', 'PE19', 'Delivery', 'Maipú 890, Retiro', 500, 'Pendiente'),
+('EN20', 'PE20', 'Retiro en local', 'Cafetería Retiro - Maipú 900', 0, 'Retirado'),
+('EN21', 'PE21', 'Delivery', 'Esmeralda 1010, Retiro', 500, 'Entregado'),
+('EN22', 'PE22', 'Delivery', 'Av. Alem 1200, Retiro', 500, 'En camino'),
+('EN23', 'PE23', 'Retiro en local', 'Cafetería Retiro - Maipú 900', 0, 'Retirado'),
+('EN24', 'PE24', 'Delivery', 'Reconquista 980, Retiro', 500, 'Pendiente'),
+('EN25', 'PE25', 'Delivery', 'Av. Madero 1050, Retiro', 500, 'Entregado');
+
+-- Actualizar stock sin bajar de 0
+UPDATE productos p
+JOIN (
+    SELECT id_producto, SUM(cantidad) AS total_vendido
+    FROM detalle_pedido
+    GROUP BY id_producto
+) d ON p.id_producto = d.id_producto
+SET p.stock = GREATEST(p.stock - d.total_vendido, 0);
+
+-- Proteger la tabla contra futuros valores negativos
+ALTER TABLE productos
+ADD CONSTRAINT chk_stock_no_negativo CHECK (stock >= 0);
+
+
+
+
+RENAME TABLE tamaños TO tamanios;
+
+ALTER TABLE tamanios
+CHANGE id_tamaño id_tamanio VARCHAR(10);
+
+SELECT constraint_name
+FROM information_schema.key_column_usage
+WHERE table_name = 'productos'
+  AND column_name = 'id_tamaño';
+  
+
+ALTER TABLE productos
+CHANGE id_tamaño id_tamanio VARCHAR(10);
+
+ALTER TABLE productos
+ADD CONSTRAINT fk_producto_tamanio
+FOREIGN KEY (id_tamanio) REFERENCES tamanios(id_tamanio);
+
+
+ALTER TABLE tamanios
+CHANGE nombre_tamaño nombre_tamanio VARCHAR(100);
